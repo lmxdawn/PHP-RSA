@@ -41,5 +41,27 @@ RSA是被研究得最广泛的公钥算法，从提出到现今的三十多年�
 为减少计算量，在传送信息时，常采用传统加密方法与公开密钥加密方法相结合的方式，
 即信息采用改进的DES或IDEA对话密钥加密，然后使用RSA密钥加密对话密钥和信息摘要。
 对方收到信息后，用不同的密钥解密并可核对信息摘要。
+
+#需要原型工具：
+
+OpenSSL下载地址：http://slproweb.com/products/Win32OpenSSL.html 
+
+
+* 安装OpenSSL
+
+    * 随意安装到哪里
+
+* 点击OpenSLL的bin目录下的 openssl.exe 进行私钥和公钥的生成
+
+    1. 生成私钥
+    *  genrsa -out rsa_private_key.pem 1024 
+    2. 生成公钥
+    *  rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem
+
+* 将生产的私钥、公钥拷贝到你的PHP项目中
+
+* 开启PHP的OpenSSL扩展
+
+1. 将php.ini中的extension=php_openssl.dll开启（去掉;）
     
 
