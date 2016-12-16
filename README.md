@@ -56,7 +56,7 @@ OpenSSL下载地址：http://slproweb.com/products/Win32OpenSSL.html
     1. 生成私钥
     *  genrsa -out rsa_private_key.pem 1024 
     2. 生成公钥
-    *  rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem
+    *  rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem   
 
 * 将生产的私钥、公钥拷贝到你的PHP项目中
 
