@@ -1,14 +1,10 @@
-#  PHP-RSA
+<?php
 
-登陆认证、web api接口调用、支付接口调用等场合经常涉及到： rsa算法  
+header("Content-type:text/html; charset=utf-8");
 
 
-## 安装
+require "../src/RsaCrypt.php";
 
->composer require lmxdawn/php-rsa
-
-## 示例
-```php
 $options = [
     'private_key' => '-----BEGIN RSA PRIVATE KEY-----
 MIICXQIBAAKBgQC6l1VcRSMuF6DTV0gdCr0oeRgzURCnrwu9zB91lMZ44oaQtBQk
@@ -33,8 +29,18 @@ o2y+w/5w6esf7h09CQIDAQAB
 -----END PUBLIC KEY-----',
 ];
 
+$options = json_decode(json_encode($options),true);
+
 $rsa = \lmxdawn\rsa\RsaCrypt::getInstance($options);//实例化单例类
 
+
+if ($_POST){
+    //web端公钥加密的内容
+    $pu_pwd = $_POST["pu_pwd"];
+
+    echo '私钥解密公钥加密的内容：'.$rsa->decodePublicEncode($pu_pwd);
+    exit;
+}
 
 $str = md5('123456');
 echo '原始数据：'.$str . '<br><br><br>';
@@ -62,28 +68,9 @@ $pdecode = $rsa->decodePublicEncode($pdata);
 echo '私钥解密：'.$pdecode . '<br><br><br>';
 
 
-```
-
-#需要原型工具：
-
-OpenSSL下载地址：http://slproweb.com/products/Win32OpenSSL.html 
+//私钥解密
 
 
-* 安装OpenSSL
 
-    * 随意安装到哪里
 
-* 点击OpenSLL的bin目录下的 openssl.exe 进行私钥和公钥的生成
-
-    1. 生成私钥
-    *  genrsa -out rsa_private_key.pem 1024 
-    2. 生成公钥
-    *  rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem   
-
-* 将生产的私钥、公钥拷贝到你的PHP项目中
-
-* 开启PHP的OpenSSL扩展
-
-1. 将php.ini中的extension=php_openssl.dll开启（去掉;）
-    
-
+?>

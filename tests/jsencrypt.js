@@ -1121,7 +1121,7 @@ function bnModInverse(m) {
 var lowprimes = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113,127,131,137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,257,263,269,271,277,281,283,293,307,311,313,317,331,337,347,349,353,359,367,373,379,383,389,397,401,409,419,421,431,433,439,443,449,457,461,463,467,479,487,491,499,503,509,521,523,541,547,557,563,569,571,577,587,593,599,601,607,613,617,619,631,641,643,647,653,659,661,673,677,683,691,701,709,719,727,733,739,743,751,757,761,769,773,787,797,809,811,821,823,827,829,839,853,857,859,863,877,881,883,887,907,911,919,929,937,941,947,953,967,971,977,983,991,997];
 var lplim = (1<<26)/lowprimes[lowprimes.length-1];
 
-// (public) test primality with certainty >= 1-.5^t
+// (public) tests primality with certainty >= 1-.5^t
 function bnIsProbablePrime(t) {
   var i, x = this.abs();
   if(x.t == 1 && x[0] <= lowprimes[lowprimes.length-1]) {
@@ -2556,7 +2556,7 @@ JSX.extend(KJUR.asn1.DERInteger, KJUR.asn1.ASN1Object);
  * As for argument 'params' for constructor, you can specify one of
  * following properties:
  * <ul>
- * <li>bin - specify binary string (ex. '10111')</li>
+ * <li>tests - specify binary string (ex. '10111')</li>
  * <li>array - specify array of boolean (ex. [true,false,true,true])</li>
  * <li>hex - specify hexadecimal string of ASN.1 value(V) including unused bits</li>
  * </ul>
@@ -2673,8 +2673,8 @@ KJUR.asn1.DERBitString = function(params) {
     if (typeof params != "undefined") {
 	if (typeof params['hex'] != "undefined") {
 	    this.setHexValueIncludingUnusedBits(params['hex']);
-	} else if (typeof params['bin'] != "undefined") {
-	    this.setByBinaryString(params['bin']);
+	} else if (typeof params['test'] != "undefined") {
+	    this.setByBinaryString(params['test']);
 	} else if (typeof params['array'] != "undefined") {
 	    this.setByBooleanArray(params['array']);
 	}
@@ -3838,7 +3838,7 @@ ASN1.test = function () {
             stream = new Stream(test[i].value, 0),
             res = ASN1.decodeLength(stream);
         if (res != test[i].expected)
-            document.write("In test[" + i + "] expected " + test[i].expected + " got " + res + "\n");
+            document.write("In tests[" + i + "] expected " + test[i].expected + " got " + res + "\n");
     }
 };
 
