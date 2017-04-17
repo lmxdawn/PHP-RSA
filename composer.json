@@ -1,7 +1,7 @@
 {
     "name": "lmxdawn/php-rsa",
     "type": "library",
-    "description": "php-rsa package",
+    "description": "php-rsa package thinkphp5.0",
     "keywords": ["php-rsa"],
     "homepage": "https://github.com/lmxdawn/php-rsa",
     "license": "Apache-2.0",
