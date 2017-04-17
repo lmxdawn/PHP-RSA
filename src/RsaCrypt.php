@@ -3,6 +3,9 @@
 namespace lmxdawn\rsa;
 
 
+//PHP错误等级
+error_reporting(0);
+
 /**
  * RSA加密解密 单例类
  * Class RsaCrypt
@@ -84,8 +87,12 @@ class RsaCrypt {
     {
         $encrypted = '';
         $private_key = openssl_pkey_get_private(self::getPrivateKey());
-        openssl_private_encrypt($data, $encrypted, $private_key); //私钥加密
-        return base64_encode($encrypted); //序列化后base64_encode
+        try {
+            openssl_private_encrypt($data, $encrypted, $private_key); //私钥加密
+            return base64_encode($encrypted); //序列化后base64_encode
+        }catch (\Exception $exception){
+            return false;
+        }
     }
     /**
      * 公钥加密
@@ -96,8 +103,13 @@ class RsaCrypt {
     {
         $encrypted = '';
         $public_key = openssl_pkey_get_public(self::getPublicKey());
-        openssl_public_encrypt($data, $encrypted, $public_key); //私钥加密
-        return base64_encode($encrypted);
+        try {
+            openssl_public_encrypt($data, $encrypted, $public_key); //私钥加密
+            return base64_encode($encrypted);
+        }catch (\Exception $exception){
+            return false;
+        }
+
     }
     /**
      * 用公钥解密私钥加密内容
@@ -108,8 +120,12 @@ class RsaCrypt {
     {
         $decrypted = '';
         $public_key = openssl_pkey_get_public(self::getPublicKey());
-        openssl_public_decrypt(base64_decode($data), $decrypted, $public_key); //私钥加密的内容通过公钥可用解密出来
-        return $decrypted;
+        try {
+            openssl_public_decrypt(base64_decode($data), $decrypted, $public_key); //私钥加密的内容通过公钥可用解密出来
+            return $decrypted;
+        }catch (\Exception $exception){
+            return false;
+        }
     }
     /**
      * 用私钥解密公钥加密内容
@@ -120,8 +136,12 @@ class RsaCrypt {
     {
         $decrypted = '';
         $private_key = openssl_pkey_get_private(self::getPrivateKey());
-        openssl_private_decrypt(base64_decode($data), $decrypted, $private_key); //私钥解密
-        return $decrypted;
+        try{
+            openssl_private_decrypt(base64_decode($data), $decrypted, $private_key); //私钥解密
+            return $decrypted;
+        }catch (\Exception $exception){
+            return false;
+        }
     }
 
 
