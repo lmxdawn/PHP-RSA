@@ -6,7 +6,6 @@
     "homepage": "https://github.com/lmxdawn/php-rsa",
     "license": "Apache-2.0",
     "minimum-stability": "stable",
-    "version": "1.0.0",
     "authors": [
         {
             "name": "Lan Ming Xiang",
